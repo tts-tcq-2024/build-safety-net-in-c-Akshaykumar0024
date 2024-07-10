@@ -39,7 +39,7 @@ char getSoundexCode(char c) {
 if (c >= 'A' && c <= 'Z')
    return soundexTable[c-'A'];
 }
-int processNameCharacters(int sIndex, int len, char *soundex)
+int processNameCharacters(const char *name,int sIndex, int len, char *soundex)
 {
        for (int i = 1; i < len && sIndex < 4; i++) {
         char code = getSoundexCode(name[i]);
