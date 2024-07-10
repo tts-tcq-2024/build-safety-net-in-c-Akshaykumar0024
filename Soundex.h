@@ -55,7 +55,7 @@ void generateSoundex(const char *name, char *soundex) {
     soundex[0] = toupper(name[0]);
     int sIndex = 1;
 
-    processNameCharacters(len,soundex);
+    sIndex = processNameCharacters(len,soundex);
  
     while (sIndex < 4) {
         soundex[sIndex++] = '0';
