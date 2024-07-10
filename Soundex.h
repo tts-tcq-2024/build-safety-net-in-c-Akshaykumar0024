@@ -39,8 +39,10 @@ char getSoundexCode(char c) {
 if (c >= 'A' && c <= 'Z')
    return soundexTable[c-'A'];
 }
-int processNameCharacters(const char *name,int sIndex, int len, char *soundex)
+int processNameCharacters(const char *name,int sIndex,char *soundex)
 {
+    int len = strlen(name);
+    soundex[0] = toupper(name[0]);
        for (int i = 1; i < len && sIndex < 4; i++) {
         char code = getSoundexCode(name[i]);
         if (code != '0' && code != soundex[sIndex - 1]) {
@@ -51,11 +53,8 @@ int processNameCharacters(const char *name,int sIndex, int len, char *soundex)
 }
 
 void generateSoundex(const char *name, char *soundex) {
-    int len = strlen(name);
-    soundex[0] = toupper(name[0]);
     int sIndex = 1;
-
-    sIndex = processNameCharacters(sIndex,len,soundex);
+    sIndex = processNameCharacters(name,soundex,sIndex);
  
     while (sIndex < 4) {
         soundex[sIndex++] = '0';
