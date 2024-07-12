@@ -40,7 +40,7 @@ if (c >= 'A' && c <= 'Z')
    return soundexTable[c-'A'];
 }
 
-addsoundex(char code, char *soundex,int sIndex)
+void addsoundex(char code, char *soundex,int sIndex)
 {
         if (code != '0' && code != soundex[sIndex - 1]) {
             soundex[sIndex++] = code;
