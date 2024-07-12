@@ -54,7 +54,7 @@ int processNameCharacters(const char *name,char *soundex,int sIndex)
     static char code;
        for (int i = 1; i < len && sIndex < 4; i++) {
         code = getSoundexCode(name[i]);
-		addsoundex(code, soundex[sIndex - 1]);
+		addsoundex(code, soundex[sIndex - 1],sIndex);
     }
     return sIndex;
 }
