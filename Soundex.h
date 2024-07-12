@@ -39,21 +39,28 @@ char getSoundexCode(char c) {
 if (c >= 'A' && c <= 'Z')
    return soundexTable[c-'A'];
 }
+
+addsoundex(char code, char soundexChar)
+{
+        if (code != '0' && code != soundexChar) {
+            soundex[sIndex++] = code;
+        }
+}
+
 int processNameCharacters(const char *name,char *soundex,int sIndex)
 {
     int len = strlen(name);
     soundex[0] = toupper(name[0]);
+    static char code;
        for (int i = 1; i < len && sIndex < 4; i++) {
-        char code = getSoundexCode(name[i]);
-        if (code != '0' && code != soundex[sIndex - 1]) {
-            soundex[sIndex++] = code;
-        }
+        code = getSoundexCode(name[i]);
+		addsoundex(code, soundex[sIndex - 1]);
     }
     return sIndex;
 }
 
 void generateSoundex(const char *name, char *soundex) {
-    int sIndex = 1;
+    static int sIndex = 1;
     sIndex = processNameCharacters(name,soundex,sIndex);
  
     while (sIndex < 4) {
