@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include "generic_soundex.h"
+#include "Soundex.h"
 
-// Test case to check if consonants are replaced with appropriate digits
-TEST(SoundexTestsuite, ReplacesConsonantsWithAppropriateDigits) {
-    char soundex[5];
-    GENERATE_SOUNDEX("AX", soundex);
-   // ASSERT_STREQ(soundex, "A200");
+TEST(SoudexTestsuite, ReplacesConsonantsWithAppropriateDigits) {
+ //AAA
+  char soundex[5];
+  generateSoundex("AX", soundex);
+  //ASSERT_EQ(soundex,"A200");
 }
