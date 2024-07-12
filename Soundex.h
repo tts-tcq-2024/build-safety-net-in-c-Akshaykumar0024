@@ -5,31 +5,64 @@
 #include <ctype.h>
 #include <string.h>
 
+    static const char soundexTable[26] = {
+        '0', // A
+        '1', // B
+        '2', // C
+        '3', // D
+        '0', // E
+        '1', // F
+        '2', // G
+        '0', // H
+        '0', // I
+        '2', // J
+        '2', // K
+        '4', // L
+        '5', // M
+        '5', // N
+        '0', // O
+        '1', // P
+        '2', // Q
+        '6', // R
+        '2', // S
+        '3', // T
+        '0', // U
+        '1', // V
+        '0', // W
+        '2', // X
+        '0', // Y
+        '2'  // Z
+    };
+
 char getSoundexCode(char c) {
     c = toupper(c);
-    switch (c) {
-        case 'B': case 'F': case 'P': case 'V': return '1';
-        case 'C': case 'G': case 'J': case 'K': case 'Q': case 'S': case 'X': case 'Z': return '2';
-        case 'D': case 'T': return '3';
-        case 'L': return '4';
-        case 'M': case 'N': return '5';
-        case 'R': return '6';
-        default: return '0'; // For A, E, I, O, U, H, W, Y
-    }
+if (c >= 'A' && c <= 'Z')
+   return soundexTable[c-'A'];
 }
 
-void generateSoundex(const char *name, char *soundex) {
-    int len = strlen(name);
-    soundex[0] = toupper(name[0]);
-    int sIndex = 1;
-
-    for (int i = 1; i < len && sIndex < 4; i++) {
-        char code = getSoundexCode(name[i]);
+void addsoundex(char code, char *soundex,int sIndex)
+{
         if (code != '0' && code != soundex[sIndex - 1]) {
             soundex[sIndex++] = code;
         }
-    }
+}
 
+int processNameCharacters(const char *name,char *soundex,int sIndex)
+{
+    int len = strlen(name);
+    soundex[0] = toupper(name[0]);
+    static char code;
+       for (int i = 1; i < len && sIndex < 4; i++) {
+        code = getSoundexCode(name[i]);
+		addsoundex(code, soundex,sIndex);
+    }
+    return sIndex;
+}
+
+void generateSoundex(const char *name, char *soundex) {
+    static int sIndex = 1;
+    sIndex = processNameCharacters(name,soundex,sIndex);
+ 
     while (sIndex < 4) {
         soundex[sIndex++] = '0';
     }
