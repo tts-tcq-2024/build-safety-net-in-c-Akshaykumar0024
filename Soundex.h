@@ -40,9 +40,9 @@ if (c >= 'A' && c <= 'Z')
    return soundexTable[c-'A'];
 }
 
-addsoundex(char code, char soundexChar,int sIndex)
+addsoundex(char code, char *soundex,int sIndex)
 {
-        if (code != '0' && code != soundexChar) {
+        if (code != '0' && code != soundex[sIndex - 1]) {
             soundex[sIndex++] = code;
         }
 }
@@ -54,7 +54,7 @@ int processNameCharacters(const char *name,char *soundex,int sIndex)
     static char code;
        for (int i = 1; i < len && sIndex < 4; i++) {
         code = getSoundexCode(name[i]);
-		addsoundex(code, soundex[sIndex - 1],sIndex);
+		addsoundex(code, soundex,sIndex);
     }
     return sIndex;
 }
